@@ -160,9 +160,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RlO-rW-zJp">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://192.168.16.80:8888/ApplicationLoader_3.0.dmg" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RlO-rW-zJp">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <string key="text">http://k.youku.com/player/getFlvPath/sid/442667496933312f8f0cb_01/st/flv/fileid/03000202005187B8D28F6F0230E416AB237B8B-4D0C-7D2A-0E75-2CF3633882E3?K=cc2b015f0334e0ff261e3c32&amp;hd=0&amp;ymovie=1&amp;myp=0&amp;ts=245&amp;ypp=2&amp;ctype=12&amp;ev=1&amp;token=2883&amp;oip=3663591661&amp;ep=diaWHE%2BKUscG7CDciz8bMSS0dCRdXP4J9h%2BFg9JgALshSeC46zalxZXGSIlCFPoZByYHFpqDqdPgGEhmYfQ3qRsQ2DqqSPrgi%2Ffm5a8gspMGZRo%2Bes%2Bit1ScSzjy</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -220,7 +219,7 @@
                                     <constraint firstAttribute="height" constant="30" id="FEU-bb-Ndy"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="nZ1-Ha-mPC"/>
                                 </constraints>
-                                <state key="normal" title="同步下载">
+                                <state key="normal" title="下载">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -245,7 +244,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="gCf-tr-Pd0"/>
                                 </constraints>
-                                <state key="normal" title="异步下载">
+                                <state key="normal" title="开始">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -260,6 +259,7 @@
                                 </variation>
                                 <connections>
                                     <action selector="ClickButton:" destination="gDo-xA-Kqd" eventType="touchUpInside" id="MXq-uJ-3la"/>
+                                    <action selector="beginDownload:" destination="gDo-xA-Kqd" eventType="touchUpInside" id="uWD-CD-Zjx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -301,19 +301,21 @@
                                 <exclude reference="rYF-uM-S9a"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="Eh5-Q9-rb2"/>
+                                <exclude reference="UrE-Nd-CdE"/>
+                                <exclude reference="bnH-aR-CkL"/>
+                                <exclude reference="iSu-Gq-rXF"/>
                                 <exclude reference="SQ2-Za-JJM"/>
                                 <exclude reference="UZK-gF-sDS"/>
                                 <exclude reference="tyc-mH-DEC"/>
+                                <exclude reference="Jkz-jB-jop"/>
+                                <exclude reference="kUk-JJ-pP4"/>
                                 <exclude reference="Eg0-me-cSm"/>
                                 <exclude reference="LZf-92-8ph"/>
                                 <exclude reference="UAx-4X-Atc"/>
                                 <exclude reference="Y4a-Tc-k3R"/>
                                 <exclude reference="txi-IH-opC"/>
                                 <exclude reference="KAS-wq-P32"/>
-                                <exclude reference="Eh5-Q9-rb2"/>
-                                <exclude reference="UrE-Nd-CdE"/>
-                                <exclude reference="bnH-aR-CkL"/>
-                                <exclude reference="iSu-Gq-rXF"/>
                                 <exclude reference="86f-ug-mXa"/>
                                 <exclude reference="KRl-M5-4Oy"/>
                                 <exclude reference="Rhw-wt-FvQ"/>
@@ -324,8 +326,6 @@
                                 <exclude reference="BU5-aK-ebH"/>
                                 <exclude reference="LtP-HP-Vnd"/>
                                 <exclude reference="img-Yf-7KP"/>
-                                <exclude reference="Jkz-jB-jop"/>
-                                <exclude reference="kUk-JJ-pP4"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -338,19 +338,21 @@
                                 <include reference="rYF-uM-S9a"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="Eh5-Q9-rb2"/>
+                                <include reference="UrE-Nd-CdE"/>
+                                <include reference="bnH-aR-CkL"/>
+                                <include reference="iSu-Gq-rXF"/>
                                 <include reference="SQ2-Za-JJM"/>
                                 <include reference="UZK-gF-sDS"/>
                                 <include reference="tyc-mH-DEC"/>
+                                <include reference="Jkz-jB-jop"/>
+                                <include reference="kUk-JJ-pP4"/>
                                 <include reference="Eg0-me-cSm"/>
                                 <include reference="LZf-92-8ph"/>
                                 <include reference="UAx-4X-Atc"/>
                                 <include reference="Y4a-Tc-k3R"/>
                                 <include reference="txi-IH-opC"/>
                                 <include reference="KAS-wq-P32"/>
-                                <include reference="Eh5-Q9-rb2"/>
-                                <include reference="UrE-Nd-CdE"/>
-                                <include reference="bnH-aR-CkL"/>
-                                <include reference="iSu-Gq-rXF"/>
                                 <include reference="86f-ug-mXa"/>
                                 <include reference="KRl-M5-4Oy"/>
                                 <include reference="Rhw-wt-FvQ"/>
@@ -361,8 +363,6 @@
                                 <include reference="BU5-aK-ebH"/>
                                 <exclude reference="LtP-HP-Vnd"/>
                                 <include reference="img-Yf-7KP"/>
-                                <include reference="Jkz-jB-jop"/>
-                                <include reference="kUk-JJ-pP4"/>
                             </mask>
                         </variation>
                     </view>

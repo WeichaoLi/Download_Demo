@@ -15,11 +15,11 @@
 }
 
 - (IBAction)ClickButton:(id)sender {
-    UIButton *button = (UIButton *)sender;
+
     NSURL *url = [[NSURL alloc] initWithString:_DownLoadURL.text];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"GET"];
-    switch (button.tag) {
+    switch (1) {
         case 0:{
             /**
              *  同步
@@ -71,9 +71,6 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *fileName = [fileManager displayNameAtPath:_DownLoadURL.text];
     
-    if (fileName.length > 50) {
-        fileName = @"1001.flv";
-    }
     NSString *filePath = _SavePath.text;
     filePath = [filePath stringByAppendingFormat:@"/%@",fileName];
     NSLog(@"%@\n\n",filePath);
@@ -84,4 +81,6 @@
     
 }
 
+- (IBAction)beginDownload:(id)sender {
+}
 @end

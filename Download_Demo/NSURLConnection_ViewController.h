@@ -13,4 +13,5 @@
 @property (weak, nonatomic) IBOutlet UITextField *DownLoadURL;
 @property (weak, nonatomic) IBOutlet UITextField *SavePath;
 
+- (IBAction)beginDownload:(id)sender;
 @end
