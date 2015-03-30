@@ -13,5 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *DownLoadURL;
 @property (weak, nonatomic) IBOutlet UITextField *SavePath;
 
+@property (nonatomic, retain) NSURLConnection *connection;
+
 - (IBAction)beginDownload:(id)sender;
 @end

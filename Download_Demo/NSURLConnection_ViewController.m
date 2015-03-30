@@ -105,14 +105,39 @@
         NSLog(@"文件已存在");
         return;
     }
-    NSURL *url = [[NSURL alloc] initWithString:DOWNLOAD_URL];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"GET"];
+//    NSURL *url = [[NSURL alloc] initWithString:DOWNLOAD_URL];
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+//    [request setHTTPMethod:@"GET"];
+//    
+//    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+//    NSURLConnection *urlConnection = [NSURLConnection connectionWithRequest:request delegate:self];
+//    
+//    [urlConnection start];
     
-    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    NSURLConnection *urlConnection = [NSURLConnection connectionWithRequest:request delegate:self];
-    
-    [urlConnection start];
+    NSString *paramURLAsString= DOWNLOAD_URL;
+    if ([paramURLAsString length] == 0){
+        NSLog(@"Nil or empty URL is given");
+        return;
+    }
+    NSURLCache *urlCache = [NSURLCache sharedURLCache];
+    /* 设置缓存的大小为1M*/
+    [urlCache setMemoryCapacity:10*1024*1024];
+    //创建一个nsurl
+    NSURL *url = [NSURL URLWithString:paramURLAsString];
+    //创建一个请求
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0f];
+    //从请求中获取缓存输出
+    NSCachedURLResponse *response = [urlCache cachedResponseForRequest:request];
+    //判断是否有缓存
+    if (response != nil){
+        NSLog(@"如果有缓存输出，从缓存中获取数据");
+        [request setCachePolicy:NSURLRequestReturnCacheDataDontLoad];
+    }
+    self.connection = [[NSURLConnection alloc] initWithRequest:request
+                                                      delegate:self
+                                              startImmediately:YES];
 }
 
 #pragma mark - NSURLConnectionDataDelegate
@@ -143,7 +168,7 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    NSLog(@"2");
+//    NSLog(@"2");
 //    @autoreleasepool {
 //        TotalData = [self getDataFromPath:SAVE_PATH];
 //        [TotalData appendData:data];
