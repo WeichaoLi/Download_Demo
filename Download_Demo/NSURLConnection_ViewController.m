@@ -8,7 +8,14 @@
 
 #import "NSURLConnection_ViewController.h"
 
-@implementation NSURLConnection_ViewController
+#define DOWNLOAD_URL        @"http://192.168.16.91:8888/jdk.zip"
+#define SAVE_DIRECTION      @"/Users/liweichao/Documents/Download"
+#define SAVE_PATH           [self getPath]
+
+@implementation NSURLConnection_ViewController {
+    long long totalBytes;
+    NSMutableData *TotalData;
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
@@ -16,7 +23,7 @@
 
 - (IBAction)ClickButton:(id)sender {
 
-    NSURL *url = [[NSURL alloc] initWithString:_DownLoadURL.text];
+    NSURL *url = [[NSURL alloc] initWithString:DOWNLOAD_URL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"GET"];
     switch (1) {
@@ -64,29 +71,45 @@
     }
 }
 
+- (NSMutableData *)getDataFromPath:(NSString *)path {
+    NSMutableData *data = [NSMutableData dataWithContentsOfFile:path];
+    NSLog(@"%@",SAVE_PATH);
+    NSLog(@"%lu",(unsigned long)data.length);
+    if (!data) {
+        data = [NSMutableData data];
+    }
+    return data;
+}
+
+- (NSString *)getPath {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *fileName = [fileManager displayNameAtPath:DOWNLOAD_URL];
+    
+    NSString *filePath = SAVE_DIRECTION;
+    filePath = [filePath stringByAppendingFormat:@"/%@",fileName];
+    
+    return filePath;
+}
+
 - (void)writereceiveDataToFile:(NSData *)data {
     assert(data != nil);
     
-//    NSString *filePath = [[NSArray arrayWithObjects:NSHomeDirectory(), @"Documents", @"DownLoad", nil] componentsJoinedByString:@"/"];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *fileName = [fileManager displayNameAtPath:_DownLoadURL.text];
-    
-    NSString *filePath = _SavePath.text;
-    filePath = [filePath stringByAppendingFormat:@"/%@",fileName];
-    NSLog(@"%@\n\n",filePath);
-    
-    if ([data writeToFile:filePath atomically:YES]) {
+    if ([data writeToFile:SAVE_PATH atomically:YES]) {
         NSLog(@"保存成功");
     }
     
 }
 
 - (IBAction)beginDownload:(id)sender {
-    
-    NSURL *url = [[NSURL alloc] initWithString:_DownLoadURL.text];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:SAVE_PATH]) {
+        NSLog(@"文件已存在");
+        return;
+    }
+    NSURL *url = [[NSURL alloc] initWithString:DOWNLOAD_URL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"GET"];
-    [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
+    
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     NSURLConnection *urlConnection = [NSURLConnection connectionWithRequest:request delegate:self];
     
     [urlConnection start];
@@ -116,10 +139,26 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     NSLog(@"1");
+    NSLog(@"%lld",response.expectedContentLength);
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-//    NSLog(@"2");
+    NSLog(@"2");
+//    @autoreleasepool {
+//        TotalData = [self getDataFromPath:SAVE_PATH];
+//        [TotalData appendData:data];
+//        [self writereceiveDataToFile:TotalData];
+//        TotalData = nil;
+//    }
+}
+
+- (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
+    NSLog(@"3");
+}
+
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
+    NSLog(@"4");
+    return cachedResponse;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
