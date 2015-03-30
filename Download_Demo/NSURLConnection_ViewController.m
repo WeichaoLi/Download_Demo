@@ -82,5 +82,69 @@
 }
 
 - (IBAction)beginDownload:(id)sender {
+    
+    NSURL *url = [[NSURL alloc] initWithString:_DownLoadURL.text];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"GET"];
+    [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
+    NSURLConnection *urlConnection = [NSURLConnection connectionWithRequest:request delegate:self];
+    
+    [urlConnection start];
 }
+
+#pragma mark - NSURLConnectionDataDelegate
+
+/*
+ - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response;
+ - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
+ 
+ - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
+ 
+ - (NSInputStream *)connection:(NSURLConnection *)connection needNewBodyStream:(NSURLRequest *)request;
+ - (void)connection:(NSURLConnection *)connection   didSendBodyData:(NSInteger)bytesWritten
+ totalBytesWritten:(NSInteger)totalBytesWritten
+ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
+ 
+ - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse;
+ 
+ - (void)connectionDidFinishLoading:(NSURLConnection *)connection;
+ */
+
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response {
+    return request;
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    NSLog(@"1");
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+//    NSLog(@"2");
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSLog(@"END");
+}
+
+#pragma mark - NSURLConnectionDelegate
+
+/*
+ - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
+ - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection;
+ - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
+ 
+ // Deprecated authentication delegates.
+ - (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace;
+ - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
+ - (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
+ */
+
+- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    NSLog(@"11");
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    NSLog(@"%@",error);
+}
+
 @end

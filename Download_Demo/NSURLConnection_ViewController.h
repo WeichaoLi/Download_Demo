@@ -8,7 +8,7 @@
 
 #import "BasicViewController.h"
 
-@interface NSURLConnection_ViewController : BasicViewController
+@interface NSURLConnection_ViewController : BasicViewController<NSURLConnectionDataDelegate, NSURLConnectionDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *DownLoadURL;
 @property (weak, nonatomic) IBOutlet UITextField *SavePath;
