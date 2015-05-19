@@ -8,10 +8,11 @@
 
 #import "BasicViewController.h"
 
-@interface NSURLConnection_ViewController : BasicViewController<NSURLConnectionDataDelegate, NSURLConnectionDelegate, NSStreamDelegate>
+@interface NSURLConnection_ViewController : BasicViewController<NSURLConnectionDataDelegate, NSStreamDelegate, NSURLConnectionDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *DownLoadURL;
-@property (weak, nonatomic) IBOutlet UITextField *SavePath;
+@property (weak, nonatomic) IBOutlet UILabel *DownLoadURL;
+@property (weak, nonatomic) IBOutlet UILabel *SavePath;
+@property (weak, nonatomic) IBOutlet UIProgressView *progress;
 
 @property (nonatomic, retain) NSURLConnection *connection;
 @property (nonatomic, retain) NSInputStream *inputStream;

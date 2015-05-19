@@ -17,7 +17,7 @@
         if ([[UIDevice currentDevice].systemVersion floatValue] >= 7.0) {
             self.navigationController.navigationBar.translucent = NO;
             self.edgesForExtendedLayout = UIRectEdgeNone;
-            self.automaticallyAdjustsScrollViewInsets = NO;
+            self.automaticallyAdjustsScrollViewInsets = YES;
         }
 #endif
     }
@@ -31,7 +31,7 @@
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 7.0) {
         self.navigationController.navigationBar.translucent = NO;
         self.edgesForExtendedLayout = UIRectEdgeNone;
-        self.automaticallyAdjustsScrollViewInsets = NO;
+        self.automaticallyAdjustsScrollViewInsets = YES;
     }
 #endif
     
